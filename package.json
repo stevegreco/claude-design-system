@@ -1,0 +1,28 @@
+{
+  "name": "knowledge-mcp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Meridian design system monorepo: UI components, design tokens, and icons published to internal consumers.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.15.1",
+      "onFail": "download"
+    }
+  },
+  "scripts": {
+    "build": "pnpm -r --sequential run build",
+    "dev": "pnpm -r --parallel run dev",
+    "clean": "pnpm -r run clean && rm -rf node_modules",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test"
+  },
+  "devDependencies": {
+    "typescript": "catalog:"
+  }
+}

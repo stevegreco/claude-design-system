@@ -1,0 +1,37 @@
+{
+  "name": "@meridian/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for the Meridian design system, published as TypeScript, JSON, and CSS custom properties.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "files": ["dist", "src/tokens.json"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./tokens.flat.json": "./dist/tokens.flat.json",
+    "./source": "./src/tokens.json"
+  },
+  "scripts": {
+    "generate": "node scripts/build-tokens.mjs",
+    "build": "pnpm run generate && tsdown",
+    "dev": "pnpm run generate && tsdown --watch",
+    "typecheck": "pnpm run generate && tsc --noEmit",
+    "clean": "rm -rf dist src/generated"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

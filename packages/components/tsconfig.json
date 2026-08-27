@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // tsdown.config.ts runs in Node; component sources stay DOM-only.
+    "types": ["node"]
+  },
+  "include": ["src", "tsdown.config.ts"]
+}
