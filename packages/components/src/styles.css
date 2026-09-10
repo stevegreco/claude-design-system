@@ -98,7 +98,7 @@
 
 .mrd-button--danger {
   background-color: var(--mrd-color-action-danger-default);
-  color: var(--mrd-color-foreground-on-brand);
+  color: var(--mrd-color-foreground-on-danger);
 }
 
 .mrd-button--danger:hover:not(:disabled) {
@@ -196,7 +196,7 @@
   min-width: 0;
 }
 
-/* --- TextField ------------------------------------------------------------ */
+/* --- Field (TextField, Select) -------------------------------------------- */
 .mrd-field {
   display: flex;
   flex-direction: column;
@@ -210,7 +210,8 @@
   font-weight: var(--mrd-font-weight-medium);
 }
 
-.mrd-field__input {
+.mrd-field__input,
+.mrd-field__select {
   padding: var(--mrd-space-2) var(--mrd-space-3);
   border: var(--mrd-border-width-thin) solid var(--mrd-color-border-default);
   border-radius: var(--mrd-radius-md);
@@ -225,18 +226,27 @@
   color: var(--mrd-color-foreground-muted);
 }
 
-.mrd-field__input:focus-visible {
+.mrd-field__input:focus-visible,
+.mrd-field__select:focus-visible {
   outline: var(--mrd-border-width-thick) solid var(--mrd-color-border-focus);
   outline-offset: 1px;
 }
 
-.mrd-field__input:disabled {
+.mrd-field__input:disabled,
+.mrd-field__select:disabled {
   background-color: var(--mrd-color-background-subtle);
   cursor: not-allowed;
 }
 
-.mrd-field--invalid .mrd-field__input {
+.mrd-field--invalid .mrd-field__input,
+.mrd-field--invalid .mrd-field__select {
   border-color: var(--mrd-color-danger-500);
+}
+
+/* The native disclosure arrow is left alone: it follows `color`, so it themes
+ * itself, and no data-URI arrow could without baking in a literal colour. */
+.mrd-field__select {
+  cursor: pointer;
 }
 
 .mrd-field__message {
@@ -250,4 +260,193 @@
 
 .mrd-field__message--error {
   color: var(--mrd-color-danger-700);
+}
+
+/* --- Checkbox ------------------------------------------------------------- */
+.mrd-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mrd-space-1);
+  font-family: var(--mrd-font-family-sans);
+}
+
+.mrd-checkbox__control {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mrd-space-2);
+}
+
+.mrd-checkbox__input {
+  flex: none;
+  width: var(--mrd-space-4);
+  height: var(--mrd-space-4);
+  /* Nudged down so the box centres on the label's first line box. */
+  margin: var(--mrd-space-1) 0 0;
+  accent-color: var(--mrd-color-action-primary);
+  cursor: pointer;
+}
+
+.mrd-checkbox__input:focus-visible {
+  outline: var(--mrd-border-width-thick) solid var(--mrd-color-border-focus);
+  outline-offset: 2px;
+}
+
+.mrd-checkbox__input:disabled,
+.mrd-checkbox__input:disabled + .mrd-checkbox__label {
+  cursor: not-allowed;
+}
+
+.mrd-checkbox__input:disabled + .mrd-checkbox__label {
+  color: var(--mrd-color-foreground-muted);
+}
+
+.mrd-checkbox__label {
+  color: var(--mrd-color-foreground-default);
+  font-size: var(--mrd-font-size-md);
+  line-height: var(--mrd-font-line-height-normal);
+  cursor: pointer;
+}
+
+.mrd-checkbox--invalid .mrd-checkbox__input:not(:focus-visible) {
+  outline: var(--mrd-border-width-thin) solid var(--mrd-color-danger-500);
+  outline-offset: 2px;
+}
+
+.mrd-checkbox__message {
+  display: flex;
+  align-items: center;
+  gap: var(--mrd-space-1);
+  /* Aligned under the label rather than the box. */
+  margin: 0 0 0 calc(var(--mrd-space-4) + var(--mrd-space-2));
+  color: var(--mrd-color-foreground-muted);
+  font-size: var(--mrd-font-size-xs);
+}
+
+.mrd-checkbox__message--error {
+  color: var(--mrd-color-danger-700);
+}
+
+/* --- Alert ---------------------------------------------------------------- */
+.mrd-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mrd-space-3);
+  padding: var(--mrd-space-3) var(--mrd-space-4);
+  border-radius: var(--mrd-radius-md);
+  font-family: var(--mrd-font-family-sans);
+  font-size: var(--mrd-font-size-sm);
+  line-height: var(--mrd-font-line-height-normal);
+}
+
+.mrd-alert__icon {
+  flex: none;
+  /* Optical centring against the first line of text. */
+  margin-top: 0.1em;
+}
+
+.mrd-alert__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--mrd-space-1);
+  min-width: 0;
+}
+
+.mrd-alert__title {
+  margin: 0;
+  font-weight: var(--mrd-font-weight-semibold);
+}
+
+.mrd-alert__body {
+  margin: 0;
+}
+
+.mrd-alert__dismiss {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  /* Negative margin keeps the padded hit area from inflating the row. */
+  margin: calc(var(--mrd-space-1) * -1);
+  padding: var(--mrd-space-1);
+  border: 0;
+  border-radius: var(--mrd-radius-sm);
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mrd-alert__dismiss:hover {
+  opacity: 0.7;
+}
+
+.mrd-alert__dismiss:focus-visible {
+  outline: var(--mrd-border-width-thick) solid currentcolor;
+  outline-offset: 1px;
+}
+
+.mrd-alert--info {
+  background-color: var(--mrd-color-brand-100);
+  color: var(--mrd-color-brand-700);
+}
+
+.mrd-alert--success {
+  background-color: var(--mrd-color-success-100);
+  color: var(--mrd-color-success-700);
+}
+
+.mrd-alert--warning {
+  background-color: var(--mrd-color-warning-100);
+  color: var(--mrd-color-warning-700);
+}
+
+.mrd-alert--danger {
+  background-color: var(--mrd-color-danger-100);
+  color: var(--mrd-color-danger-700);
+}
+
+/* --- Spinner -------------------------------------------------------------- */
+.mrd-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.mrd-spinner--sm {
+  width: var(--mrd-space-4);
+  height: var(--mrd-space-4);
+}
+
+.mrd-spinner--md {
+  width: var(--mrd-space-5);
+  height: var(--mrd-space-5);
+}
+
+.mrd-spinner--lg {
+  width: var(--mrd-space-6);
+  height: var(--mrd-space-6);
+}
+
+.mrd-spinner__track {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: var(--mrd-border-width-thick) solid currentcolor;
+  border-top-color: transparent;
+  border-radius: var(--mrd-radius-full);
+  animation: mrd-spin var(--mrd-duration-slow) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Kept moving so the indicator still reads as "working", but slowly. */
+  .mrd-spinner__track {
+    animation-duration: calc(var(--mrd-duration-slow) * 8);
+  }
+}
+
+@keyframes mrd-spin {
+  to {
+    transform: rotate(1turn);
+  }
 }
