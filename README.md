@@ -10,7 +10,7 @@ under the `@meridian` scope.
 | --- | --- | --- |
 | [`@meridian/tokens`](packages/tokens) | TS/JSON/CSS token artifacts generated from one JSON source | colors, spacing, typography, elevation |
 | [`@meridian/icons`](packages/icons) | React icon components + raw SVG sources | iconography |
-| [`@meridian/components`](packages/components) | React components + `styles.css` | Buttons, fields, cards, layout |
+| [`@meridian/components`](packages/components) | React components + `styles.css` | Buttons, fields, cards, alerts, layout |
 
 Dependency direction is one-way: `components` → `icons` → `tokens`. Nothing
 depends back up the chain.
@@ -35,20 +35,32 @@ pnpm add @meridian/components @meridian/icons @meridian/tokens
 
 ```tsx
 import '@meridian/components/styles.css' // pulls in tokens.css
-import { Button, Card, Stack } from '@meridian/components'
+import { Alert, Button, Card, Select, Stack } from '@meridian/components'
 import { CheckIcon } from '@meridian/icons'
 
 export function Example() {
   return (
     <Card title="Release" appearance="raised">
-      <Stack direction="row" gap="2">
-        <Button startIcon={<CheckIcon />}>Approve</Button>
-        <Button variant="secondary">Cancel</Button>
+      <Stack gap="4">
+        <Alert tone="warning" title="Staging is behind">
+          Deploy to staging before promoting this build.
+        </Alert>
+        <Select label="Environment" defaultValue="staging">
+          <option value="staging">Staging</option>
+          <option value="production">Production</option>
+        </Select>
+        <Stack direction="row" gap="2" justify="flex-end">
+          <Button variant="secondary">Cancel</Button>
+          <Button startIcon={<CheckIcon />}>Approve</Button>
+        </Stack>
       </Stack>
     </Card>
   )
 }
 ```
+
+`@meridian/components` ships `Alert`, `Badge`, `Button`, `Card`, `Checkbox`,
+`Select`, `Spinner`, `Stack`, and `TextField`.
 
 Dark mode follows `prefers-color-scheme` and can be forced per subtree with
 `data-theme="dark"` or `data-theme="light"`.
